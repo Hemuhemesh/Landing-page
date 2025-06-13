@@ -19,16 +19,24 @@
             background-color: #e0f2fe; /* Light blue background for the entire page */
             color: #1a202c; /* Dark text for contrast */
         }
-        .section-padding {
-            padding: 4rem 1rem; /* Default padding for sections */
-            max-width: 1200px; /* Max width for content */
+        /* Ensured all sections stretch full width for background */
+        section {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px; /* Max width for content within sections */
             margin: 0 auto; /* Center content */
+            padding-left: 1rem; /* Default horizontal padding for content within container */
+            padding-right: 1rem; /* Default horizontal padding for content within container */
         }
         @media (min-width: 768px) {
-            .section-padding {
-                padding: 6rem 2rem; /* More padding on larger screens */
+            .container {
+                padding-left: 2rem; /* More padding on larger screens */
+                padding-right: 2rem; /* More padding on larger screens */
             }
         }
+
         .glass-effect {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -176,9 +184,8 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; /* For centering content when JS sets display to flex */
+            justify-content: center; /* For centering content when JS sets display to flex */
         }
 
         .modal-content {
@@ -207,6 +214,44 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* FAQ specific styles for accordion */
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.25rem; /* text-xl */
+            cursor: pointer;
+            padding: 0.75rem 0;
+            color: #003684; /* golisoda-dark-blue */
+        }
+        .faq-question:hover {
+            color: #14abf8; /* golisoda-blue */
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 0.5rem;
+            color: #4a5568; /* gray-700 */
+        }
+        .faq-answer.open {
+            max-height: 200px; /* Adjust as needed for content length */
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .faq-icon.rotate {
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -216,25 +261,21 @@
         <div class="container mx-auto flex justify-between items-center px-4">
             <!-- Logo/Brand Name -->
             <a href="#" class="text-2xl font-bold text-gray-900 rounded-md p-2 flex items-center hover:bg-blue-50 transition duration-300">
-                <!-- Custom SVG Icon for Golisoda Bottle/Factory - Using golisoda-blue -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 mr-2 text-golisoda-blue">
-                    <path d="M7.493 21.037a3 3 0 01-2.483-2.613l-.53-6.425C4.332 9.079 5.86 7.42 7.747 7.42h8.506c1.887 0 3.415 1.659 3.266 4.58l-.53 6.425a3 3 0 01-2.483 2.613H7.493z" />
-                    <path d="M12 2.25a.75.75 0 00-.75.75V4.5c0 .414.336.75.75.75h.75a.75.75 0 000-1.5H12a.75.75 0 00-.75-.75zM12 5.25a.75.75 0 00-.75.75v.75c0 .414.336.75.75.75h.75a.75.75 0 000-1.5H12a.75.75 0 00-.75-.75zM12 8.25a.75.75 0 00-.75.75v.75c0 .414.336.75.75.75h.75a.75.75 0 000-1.5H12a.75.75 0 00-.75-.75z" />
-                    <path fill-rule="evenodd" d="M12 1.5a.75.75 0 01.75.75V3h-.75A.75.75 0 0112 1.5z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M12 3h.75v.75a.75.75 0 01-1.5 0V3z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M12 4.5h.75v.75a.75.75 0 01-1.5 0V4.5z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M12 6h.75v.75a.75.75 0 01-1.5 0V6z" clip-rule="evenodd" />
-                </svg>
+                <!-- Replaced SVG with PNG Image for Brand Logo -->
+                <img src="https://placehold.co/40x40/14abf8/ffffff?text=LOGO" alt="Mr.Golisoda Logo" class="w-10 h-10 mr-2 object-contain">
+                <!-- Added a placeholder image URL. Please replace 'https://placehold.co/40x40/14abf8/ffffff?text=LOGO' with your actual 'mr_golisoda.png' image URL. -->
                 Mr.Golisoda
             </a>
             <!-- Navigation -->
             <nav>
                 <ul class="flex space-x-4 md:space-x-6">
                     <li><a href="#hero" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Franchise</a></li>
-                    <li><a href="#what-you-get" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Benefits</a></li>
                     <li><a href="#about-brand" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">About Us</a></li>
-                    <li><a href="#founder" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Founders</a></li>
+                    <li><a href="#what-you-get" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Benefits</a></li>
                     <li><a href="#testimonials" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Testimonials</a></li>
+                    <li><a href="#founder" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Founders</a></li>
+                    <li><a href="#reviews" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Reviews</a></li>
+                    <li><a href="#faq" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">FAQ</a></li>
                     <li><a href="#contact-form-section" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Contact</a></li>
                 </ul>
             </nav>
@@ -242,53 +283,91 @@
     </header>
 
     <!-- Hero Section - Franchise Focus -->
-    <section id="hero" class="bg-golisoda-blue text-white section-padding">
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-10 min-h-[calc(100vh-80px)]">
-            <!-- Text Content for Franchise -->
-            <div class="lg:w-1/2 text-center lg:text-left">
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                    Start Your Own Golisoda Factory with Mr.Golisoda!
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 max-w-xl lg:max-w-none opacity-90">
-                    Join India's leading traditional soda brand, established for 8 successful years. Expand with us and secure your financial future.
-                </p>
-                <!-- Investment & Returns Box with Blue Backdrop -->
-                <div class="bg-blue-200 text-gray-900 p-6 rounded-xl shadow-xl mb-8 border border-golisoda-yellow">
-                    <h3 class="text-2xl font-bold text-golisoda-dark-blue mb-3">Franchise Investment & Returns:</h3>
-                    <p class="text-lg mb-2">
-                        <span class="font-bold">Franchise Cost:</span> <span class="text-2xl font-extrabold text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹45 Lakhs</span>
+    <section id="hero" class="bg-golisoda-blue text-white py-16 md:py-20 flex items-center min-h-[calc(100vh-80px)]">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 h-full">
+                <!-- Text Content for Franchise -->
+                <div class="lg:w-1/2 w-full text-center flex flex-col justify-center h-full">
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg text-center">
+                        Start Your Own Golisoda Factory with Mr.Golisoda!
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 max-w-xl lg:max-w-none opacity-90 mx-auto">
+                        Join India's leading traditional soda brand, established for 8 successful years. Expand with us and secure your financial future.
                     </p>
-                    <p class="text-lg">
-                        <span class="font-bold">Guaranteed Monthly Return:</span> <span class="text-2xl font-extrabold text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹1.75 Lakhs</span> (for 2.5 years)
+                    <!-- Investment & Returns Box with Blue Backdrop -->
+                    <div class="bg-blue-200 text-gray-900 p-6 rounded-xl shadow-xl mb-8 border border-golisoda-yellow mx-auto w-full max-w-md">
+                        <h3 class="text-2xl font-bold text-golisoda-dark-blue mb-3">Franchise Investment & Returns:</h3>
+                        <p class="text-lg mb-2">
+                            <span class="font-bold">Franchise Cost:</span> <span class="text-2xl font-extrabold text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹45 Lakhs</span>
+                        </p>
+                        <p class="text-lg">
+                            <span class="font-bold">Guaranteed Monthly Return:</span> <span class="text-2xl font-extrabold text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹1.75 Lakhs</span> (for 2.5 years)
+                        </p>
+                    </div>
+                    <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900 mx-auto">
+                        Apply for Franchise Today!
+                    </a>
+                </div>
+                <!-- Video by Founder -->
+                <div class="lg:w-1/2 w-full mt-10 lg:mt-0 flex flex-col items-center justify-center h-full">
+                    <div class="video-embed-container w-full max-w-md mx-auto">
+                        <!-- Added max-w-md and mx-auto for better alignment with investment box on larger screens -->
+                        <!-- Replace with your 4K YouTube embed code -->
+                        <iframe
+                            src="https://www.youtube.com/embed/YOUR_FOUNDER_VIDEO_ID?autoplay=0&controls=1&showinfo=0&rel=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            title="Mr.Golisoda Founder's Message"
+                        ></iframe>
+                    </div>
+                    <p class="text-center text-sm mt-4 opacity-90">
+                        Watch our founder explain the lucrative Mr.Golisoda franchise model.
                     </p>
                 </div>
-                <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                    Apply for Franchise Today!
-                </a>
             </div>
-            <!-- Video by Founder -->
-            <div class="lg:w-1/2 w-full mt-10 lg:mt-0">
-                <div class="video-embed-container">
-                    <!-- Replace with your 4K YouTube embed code -->
-                    <iframe
-                        src="https://www.youtube.com/embed/YOUR_FOUNDER_VIDEO_ID?autoplay=0&controls=1&showinfo=0&rel=0"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        title="Mr.Golisoda Founder's Message"
-                    ></iframe>
+        </div>
+    </section>
+
+    <!-- About The Brand Section with Slideshow -->
+    <section id="about-brand" class="bg-white py-16 md:py-20">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 text-center md:text-left">Our 8-Year Journey of Fizz & Success</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
+                        Mr.Golisoda began its journey 8 years ago with a vision to reintroduce the nostalgic charm of traditional Indian goli soda. What started as a humble endeavor has blossomed into a formidable brand, successfully establishing its presence across multiple states in India.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
+                        Our commitment to authentic flavors, quality ingredients, and a unique bottling experience has resonated with millions. We've achieved significant milestones, expanding our manufacturing capabilities and building a robust distribution network, making Mr.Golisoda a household name in several regions.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed text-center md:text-left">
+                        This sustained success over nearly a decade is a testament to our strong brand foundation, loyal customer base, and a business model proven to thrive.
+                    </p>
+                    <a href="#contact-form-section" class="inline-block mt-8 px-7 py-3 rounded-full text-lg font-medium shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900 mx-auto md:mx-0">
+                        Learn More About Our Growth
+                    </a>
                 </div>
-                <p class="text-center text-sm mt-4 opacity-90">
-                    Watch our founder explain the lucrative Mr.Golisoda franchise model.
-                </p>
+                <div class="md:w-1/2 w-full mt-10 md:mt-0">
+                    <div class="slideshow-container">
+                        <img class="mySlides" src="https://placehold.co/600x400/808080/ffffff?text=Mr.Golisoda+Factory+Image+1" alt="Mr.Golisoda Factory 1">
+                        <img class="mySlides" src="https://placehold.co/600x400/94a3b8/ffffff?text=Production+Line+Image+2" alt="Production Line 2">
+                        <img class="mySlides" src="https://placehold.co/600x400/cbd5e1/334155?text=Distribution+Image+3" alt="Distribution 3">
+                        <img class="mySlides" src="https://placehold.co/600x400/64748b/ffffff?text=Team+Image+4" alt="Team 4">
+
+                        <!-- Next and previous buttons -->
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- What Franchises Get Section -->
-    <section id="what-you-get" class="py-16 md:py-20 bg-golisoda-blue rounded-xl mx-4 my-8 shadow-md">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-golisoda-dark-blue">What You Get as a Mr. Golisoda Manufacturing Franchise</h2>
+    <section id="what-you-get" class="bg-golisoda-blue py-16 md:py-20">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">What You Get as a Mr. Golisoda Manufacturing Franchise</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Benefit 1: Guaranteed Profit -->
                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
@@ -336,281 +415,315 @@
         </div>
     </section>
 
-    <!-- About The Brand Section with Slideshow -->
-    <section id="about-brand" class="bg-white section-padding">
-        <div class="flex flex-col md:flex-row items-center gap-10">
-            <div class="md:w-1/2">
-                <h2 class="text-4xl font-bold text-gray-900 mb-6 text-center md:text-left">Our 8-Year Journey of Fizz & Success</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
-                    Mr.Golisoda began its journey 8 years ago with a vision to reintroduce the nostalgic charm of traditional Indian goli soda. What started as a humble endeavor has blossomed into a formidable brand, successfully establishing its presence across multiple states in India.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
-                    Our commitment to authentic flavors, quality ingredients, and a unique bottling experience has resonated with millions. We've achieved significant milestones, expanding our manufacturing capabilities and building a robust distribution network, making Mr.Golisoda a household name in several regions.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed text-center md:text-left">
-                    This sustained success over nearly a decade is a testament to our strong brand foundation, loyal customer base, and a business model proven to thrive.
-                </p>
-                <a href="#contact-form-section" class="inline-block mt-8 px-7 py-3 rounded-full text-lg font-medium shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                    Learn More About Our Growth
+    <!-- Testimonial Videos Section -->
+    <section id="testimonials" class="bg-white py-16 md:py-20">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Hear From Our Successful Franchise Owners</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Testimonial Video 1 Thumbnail (Nammakal) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
+                    <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('n6_zQc_pCaU')">
+                        <img src="https://img.youtube.com/vi/n6_zQc_pCaU/hqdefault.jpg" alt="Franchise Testimonial Video 1 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 italic text-center">"Our journey as Mr. Golisoda franchise owners in Nammakal began with great excitement, and the support has been fantastic!"</p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Nammakal</p>
+                </div>
+                <!-- Testimonial Video 2 Thumbnail (Karaikudi) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
+                    <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('WogwCVaeECc')">
+                        <img src="https://img.youtube.com/vi/WogwCVaeECc/hqdefault.jpg" alt="Franchise Testimonial Video 2 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 italic text-center">"Within just 30 days, our Karaikudi franchise is achieving sales of 1000 to 1500 bottles per month – a true sales success story!"</p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Karaikudi</p>
+                </div>
+                <!-- Testimonial Video 3 Thumbnail (Chittoor, AP) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
+                    <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('VfiHfNnyCbQ')">
+                        <img src="https://img.youtube.com/vi/VfiHfNnyCbQ/hqdefault.jpg" alt="Franchise Testimonial Video 3 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 italic text-center">"Our Chittoor franchise in AP has seen incredible sales! For those waiting to invest, start your franchise today and join our growth."</p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Chittoor, AP</p>
+                </div>
+                <!-- Testimonial Video 4 Thumbnail (Ahmedabad Teaser) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
+                    <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('y2dj-KCDkbQ')">
+                        <img src="https://img.youtube.com/vi/y2dj-KCDkbQ/hqdefault.jpg" alt="Franchise Teaser Video Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 italic text-center">"A short teaser of our Ahmedabad franchise opening! This is how we celebrate the beginning of each new franchise's successful journey."</p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Mr.Golisoda Team</p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
+                    Join Our Successful Franchise Network
                 </a>
             </div>
-            <div class="md:w-1/2 w-full mt-10 md:mt-0">
-                <div class="slideshow-container">
-                    <img class="mySlides" src="https://placehold.co/600x400/808080/ffffff?text=Mr.Golisoda+Factory+Image+1" alt="Mr.Golisoda Factory 1">
-                    <img class="mySlides" src="https://placehold.co/600x400/94a3b8/ffffff?text=Production+Line+Image+2" alt="Production Line 2">
-                    <img class="mySlides" src="https://placehold.co/600x400/cbd5e1/334155?text=Distribution+Image+3" alt="Distribution 3">
-                    <img class="mySlides" src="https://placehold.co/600x400/64748b/ffffff?text=Team+Image+4" alt="Team 4">
-
-                    <!-- Next and previous buttons -->
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonial Videos Section -->
-    <section id="testimonials" class="bg-golisoda-blue section-padding">
-        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Hear From Our Successful Franchise Owners</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Testimonial Video 1 Thumbnail (Nammakal) -->
-            <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
-                <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('n6_zQc_pCaU')">
-                    <img src="https://img.youtube.com/vi/n6_zQc_pCaU/hqdefault.jpg" alt="Franchise Testimonial Video 1 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <p class="text-lg text-gray-700 italic text-center">"Our journey as Mr. Golisoda franchise owners in Nammakal began with great excitement, and the support has been fantastic!"</p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Nammakal</p>
-            </div>
-            <!-- Testimonial Video 2 Thumbnail (Karaikudi) -->
-            <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
-                <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('WogwCVaeECc')">
-                    <img src="https://img.youtube.com/vi/WogwCVaeECc/hqdefault.jpg" alt="Franchise Testimonial Video 2 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <p class="text-lg text-gray-700 italic text-center">"Within just 30 days, our Karaikudi franchise is achieving sales of **1000 to 1500 bottles per month** – a true sales success story!"</p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Karaikudi</p>
-            </div>
-            <!-- Testimonial Video 3 Thumbnail (Chittoor, AP) -->
-            <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
-                <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('VfiHfNnyCbQ')">
-                    <img src="https://img.youtube.com/vi/VfiHfNnyCbQ/hqdefault.jpg" alt="Franchise Testimonial Video 3 Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <p class="text-lg text-gray-700 italic text-center">"Our Chittoor franchise in AP has seen incredible sales! For those waiting to invest, **start your franchise today** and join our growth."</p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee from Chittoor, AP</p>
-            </div>
-            <!-- Testimonial Video 4 Thumbnail (Ahmedabad Teaser) -->
-            <div class="bg-white p-6 rounded-xl shadow-md border border-golisoda-yellow">
-                <div class="vertical-video-thumbnail-container mb-4" onclick="openModal('y2dj-KCDkbQ')">
-                    <img src="https://img.youtube.com/vi/y2dj-KCDkbQ/hqdefault.jpg" alt="Franchise Teaser Video Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x500/e2e8f0/808080?text=Video+Thumbnail';" class="rounded-lg">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <p class="text-lg text-gray-700 italic text-center">"A short teaser of our Ahmedabad franchise opening! This is how we celebrate the beginning of each new franchise's successful journey."</p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Mr.Golisoda Team</p>
-            </div>
-        </div>
-        <div class="text-center mt-8">
-            <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                Join Our Successful Franchise Network
-            </a>
         </div>
     </section>
 
     <!-- About The Founder Section - Two Founders -->
-    <section id="founder" class="bg-white section-padding">
-        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Meet Our Visionary Founders</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <!-- Founder 1 -->
-            <div class="flex flex-col items-center text-center md:text-left md:items-start p-6 rounded-xl shadow-md border border-golisoda-yellow bg-golisoda-blue">
-                <img src="https://placehold.co/200x200/4a5568/ffffff?text=Founder+1+Image" alt="Mr.Golisoda Founder 1" class="rounded-full w-48 h-48 object-cover mx-auto md:mx-0 shadow-lg mb-6">
-                <h3 class="text-2xl font-semibold text-white">Mr. Chandru</h3>
-                <p class="text-lg mb-4 text-golisoda-yellow">Co-Founder & CEO, Mr.Golisoda</p>
-                <p class="text-lg text-white leading-relaxed">
-                    Mr. Chandru initiated the Mr.Golisoda journey with a deep-rooted passion for traditional Indian beverages and a keen entrepreneurial spirit. Their vision of reviving the nostalgic goli soda experience, combined with a strong strategic mindset, has been pivotal in establishing the brand's national footprint. They continue to drive innovation and market expansion.
-                </p>
+    <section id="founder" class="bg-white py-16 md:py-20">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Meet Our Visionary Founders</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Founder 1 -->
+                <div class="flex flex-col items-center text-center md:text-left md:items-start p-6 rounded-xl shadow-md border border-golisoda-yellow bg-golisoda-blue">
+                    <img src="https://placehold.co/200x200/4a5568/ffffff?text=Founder+1+Image" alt="Mr.Golisoda Founder 1" class="rounded-full w-48 h-48 object-cover mx-auto md:mx-0 shadow-lg mb-6">
+                    <h3 class="text-2xl font-semibold text-white">Mr. Chandru</h3>
+                    <p class="text-lg mb-4 text-golisoda-yellow">Co-Founder & CEO, Mr.Golisoda</p>
+                    <p class="text-lg text-white leading-relaxed">
+                        Mr. Chandru initiated the Mr.Golisoda journey with a deep-rooted passion for traditional Indian beverages and a keen entrepreneurial spirit. Their vision of reviving the nostalgic goli soda experience, combined with a strong strategic mindset, has been pivotal in establishing the brand's national footprint. They continue to drive innovation and market expansion.
+                    </p>
+                </div>
+                <!-- Founder 2 -->
+                <div class="flex flex-col items-center text-center md:text-left md:items-start p-6 rounded-xl shadow-md border border-golisoda-yellow bg-golisoda-blue">
+                    <img src="https://placehold.co/200x200/2d3748/ffffff?text=Founder+2+Image" alt="Mr.Golisoda Founder 2" class="rounded-full w-48 h-48 object-cover mx-auto md:mx-0 shadow-lg mb-6">
+                    <h3 class="text-2xl font-semibold text-white">Mr. Abdul Aziz</h3>
+                    <p class="text-lg mb-4 text-golisoda-yellow">Co-Founder & COO, Mr.Golisoda</p>
+                    <p class="text-lg text-white leading-relaxed">
+                        Mr. Abdul Aziz brings extensive operational expertise and a commitment to excellence, complementing the brand's vision. Their dedication to perfecting the manufacturing process, ensuring quality control, and building a robust franchise support system has been crucial to Mr.Golisoda's consistent growth and success across diverse markets in India.
+                    </p>
+                </div>
             </div>
-            <!-- Founder 2 -->
-            <div class="flex flex-col items-center text-center md:text-left md:items-start p-6 rounded-xl shadow-md border border-golisoda-yellow bg-golisoda-blue">
-                <img src="https://placehold.co/200x200/2d3748/ffffff?text=Founder+2+Image" alt="Mr.Golisoda Founder 2" class="rounded-full w-48 h-48 object-cover mx-auto md:mx-0 shadow-lg mb-6">
-                <h3 class="text-2xl font-semibold text-white">Mr. Abdul Aziz</h3>
-                <p class="text-lg mb-4 text-golisoda-yellow">Co-Founder & COO, Mr.Golisoda</p>
-                <p class="text-lg text-white leading-relaxed">
-                    Mr. Abdul Aziz brings extensive operational expertise and a commitment to excellence, complementing the brand's vision. Their dedication to perfecting the manufacturing process, ensuring quality control, and building a robust franchise support system has been crucial to Mr.Golisoda's consistent growth and success across diverse markets in India.
-                </p>
+            <!-- CTA for Founders Section -->
+            <div class="mt-12 text-center">
+                <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
+                    Connect with Our Founders!
+                </a>
             </div>
-        </div>
-        <!-- CTA for Founders Section -->
-        <div class="mt-12 text-center">
-            <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                Connect with Our Founders!
-            </a>
         </div>
     </section>
 
     <!-- Franchise Owner Reviews (Sliding/Static) -->
-    <section class="bg-golisoda-blue section-padding">
-        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">What Our Franchise Owners Say</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Review Card 1 -->
-            <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
-                <p class="text-lg text-gray-700 mb-4 italic">
-                    "The support from Mr.Golisoda team is exceptional. From setup to marketing, they guide you every step. My monthly returns are consistent and beyond expectations!"
-                </p>
-                <p class="font-semibold text-golisoda-dark-blue">- Franchisee A, Maharashtra</p>
+    <section id="reviews" class="bg-golisoda-blue py-16 md:py-20">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">What Our Franchise Owners Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
+                    <p class="text-lg text-gray-700 mb-4 italic">
+                        "The support from Mr.Golisoda team is exceptional. From setup to marketing, they guide you every step. My monthly returns are consistent and beyond expectations!"
+                    </p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee A, Maharashtra</p>
+                </div>
+                <!-- Review Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
+                    <p class="text-lg text-gray-700 mb-4 italic">
+                        "I took the franchise last year, and it has been a fantastic investment. The brand recall is strong, and the product sells itself. Highly recommend for anyone looking for a reliable business."
+                    </p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee B, Karnataka</p>
+                </div>
+                <!-- Review Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
+                    <p class="text-lg text-gray-700 mb-4 italic">
+                        "The guaranteed returns model gave me immense confidence. Mr.Golisoda is a trustworthy partner. My manufacturing unit is thriving, and I'm very happy with my decision."
+                    </p>
+                    <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee C, Tamil Nadu</p>
+                </div>
+                <!-- Add more review cards as needed -->
             </div>
-            <!-- Review Card 2 -->
-            <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
-                <p class="text-lg text-gray-700 mb-4 italic">
-                    "I took the franchise last year, and it has been a fantastic investment. The brand recall is strong, and the product sells itself. Highly recommend for anyone looking for a reliable business."
-                </p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee B, Karnataka</p>
+            <div class="text-center mt-8">
+                <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
+                    Join Our Successful Franchise Network
+                </a>
             </div>
-            <!-- Review Card 3 -->
-            <div class="bg-white p-8 rounded-xl shadow-md border border-golisoda-yellow">
-                <p class="text-lg text-gray-700 mb-4 italic">
-                    "The guaranteed returns model gave me immense confidence. Mr.Golisoda is a trustworthy partner. My manufacturing unit is thriving, and I'm very happy with my decision."
-                </p>
-                <p class="font-semibold text-center mt-2 text-golisoda-dark-blue">- Franchisee C, Tamil Nadu</p>
-            </div>
-            <!-- Add more review cards as needed -->
         </div>
-        <div class="text-center mt-8">
-            <a href="#contact-form-section" class="inline-block px-8 py-4 rounded-full text-lg font-bold shadow transition duration-300 bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                Join Our Successful Franchise Network
-            </a>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-white py-16 md:py-20">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Frequently Asked Questions (FAQ)</h2>
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What is the total investment required for a Mr. Golisoda franchise?
+                        <span class="faq-icon text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-lg leading-relaxed">The total investment for a Mr. Golisoda manufacturing franchise is ₹45 Lakhs + GST. This covers machinery, equipment, software support, and initial launch assistance.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What kind of returns can I expect from the franchise?
+                        <span class="faq-icon text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-lg leading-relaxed">We offer a guaranteed monthly return of ₹1.75 Lakhs for a period of 2.5 years, ensuring a stable income and quick return on your investment.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What kind of area and resources are required for the factory setup?
+                        <span class="faq-icon text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-lg leading-relaxed">You will need approximately 1000 sq ft area for the factory setup. Additionally, you will need to arrange for one supply vehicle for distribution.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Do you provide training and support for new franchise owners?
+                        <span class="faq-icon text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-lg leading-relaxed">Yes, we provide comprehensive A-Z training for your manpower, along with dedicated software support for operations, inventory, and sales management. Our launch team also assists in establishing your market presence.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        How long has Mr. Golisoda been in business?
+                        <span class="faq-icon text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-lg leading-relaxed">Mr. Golisoda has a proven track record of 8 successful years in the market, establishing itself as a leading traditional soda brand in India.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Call to Action Section - Franchise Inquiry Form -->
-    <section id="contact-form-section" class="bg-golisoda-blue text-white section-padding text-center">
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-            Ready to Invest in a Proven Business Model?
-        </h2>
-        <!-- Updated Contact Section Description -->
-        <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
-            Take the first step towards owning a profitable Mr. Golisoda manufacturing franchise. Required: <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹45 Lakhs + GST investment</span>, <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">1000 sq ft area</span>, and <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">one supply vehicle</span>. Fill out the form below, and our team will contact you.
-        </p>
+    <section id="contact-form-section" class="bg-golisoda-blue text-white py-16 md:py-20 text-center">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                Ready to Invest in a Proven Business Model?
+            </h2>
+            <!-- Updated Contact Section Description -->
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
+                Take the first step towards owning a profitable Mr. Golisoda manufacturing franchise. Required: <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">₹45 Lakhs + GST investment</span>, <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">1000 sq ft area</span>, and <span class="text-golisoda-yellow inline-block px-2 py-1 rounded-md bg-golisoda-dark-blue">one supply vehicle</span>. Fill out the form below, and our team will contact you.
+            </p>
 
-        <!-- Franchise Inquiry Form -->
-        <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-xl text-gray-900">
-            <form action="YOUR_APPS_SCRIPT_WEB_APP_URL" method="POST" class="space-y-6">
-                <!-- Name -->
-                <div>
-                    <label for="name" class="block text-left text-lg font-medium text-gray-700 mb-2">Name:</label>
-                    <input type="text" id="name" name="Name" required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
-                </div>
+            <!-- Franchise Inquiry Form -->
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-xl text-gray-900">
+                <form action="YOUR_APPS_SCRIPT_WEB_APP_URL" method="POST" class="space-y-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-left text-lg font-medium text-gray-700 mb-2">Name:</label>
+                        <input type="text" id="name" name="Name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
+                    </div>
 
-                <!-- Phone Number -->
-                <div>
-                    <label for="contact" class="block text-left text-lg font-medium text-gray-700 mb-2">Contact Number:</label>
-                    <input type="tel" id="contact" name="Contact" required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
-                </div>
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="contact" class="block text-left text-lg font-medium text-gray-700 mb-2">Contact Number:</label>
+                        <input type="tel" id="contact" name="Contact" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
+                    </div>
 
-                <!-- Email (Separate Row) -->
-                <div>
-                    <label for="email" class="block text-left text-lg font-medium text-gray-700 mb-2">Email:</label>
-                    <input type="email" id="email" name="Email" required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
-                </div>
+                    <!-- Email (Separate Row) -->
+                    <div>
+                        <label for="email" class="block text-left text-lg font-medium text-gray-700 mb-2">Email:</label>
+                        <input type="email" id="email" name="Email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
+                    </div>
 
-                <!-- State -->
-                <div>
-                    <label for="state" class="block text-left text-lg font-medium text-gray-700 mb-2">State:</label>
-                    <select id="state" name="State" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm text-lg">
-                        <option value="" disabled selected>Select your State</option>
-                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                        <option value="Assam">Assam</option>
-                        <option value="Bihar">Bihar</option>
-                        <option value="Chhattisgarh">Chhattisgarh</option>
-                        <option value="Goa">Goa</option>
-                        <option value="Gujarat">Gujarat</option>
-                        <option value="Haryana">Haryana</option>
-                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                        <option value="Jharkhand">Jharkhand</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Kerala">Kerala</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Manipur">Manipur</option>
-                        <option value="Meghalaya">Meghalaya</option>
-                        <option value="Mizoram">Mizoram</option>
-                        <option value="Nagaland">Nagaland</option>
-                        <option value="Odisha">Odisha</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="Sikkim">Sikkim</option>
-                        <option value="Tamil Nadu">Tamil Nadu</option>
-                        <option value="Telangana">Telangana</option>
-                        <option value="Tripura">Tripura</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                        <option value="Uttarakhand">Uttarakhand</option>
-                        <option value="West Bengal">West Bengal</option>
-                    </select>
-                </div>
+                    <!-- State -->
+                    <div>
+                        <label for="state" class="block text-left text-lg font-medium text-gray-700 mb-2">State:</label>
+                        <select id="state" name="State" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm text-lg">
+                            <option value="" disabled selected>Select your State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
 
-                <!-- District -->
-                <div>
-                    <label for="district" class="block text-left text-lg font-medium text-gray-700 mb-2">District:</label>
-                    <input type="text" id="district" name="District" required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
-                </div>
+                    <!-- District -->
+                    <div>
+                        <label for="district" class="block text-left text-lg font-medium text-gray-700 mb-2">District:</label>
+                        <input type="text" id="district" name="District" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-golisoda-yellow focus:border-golisoda-yellow shadow-sm placeholder-gray-400 text-lg">
+                    </div>
 
-                <!-- How did you hear about us? -->
-                <div>
-                    <label class="block text-left text-lg font-medium text-gray-700 mb-2">How did you hear about us?</label>
-                    <div class="mt-2 space-y-2 text-left">
-                        <div class="flex items-center">
-                            <input id="source-instagram" name="Source" type="radio" value="Instagram" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
-                            <label for="source-instagram" class="ml-3 text-lg text-gray-700">Instagram</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="source-facebook" name="Source" type="radio" value="Facebook" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
-                            <label for="source-facebook" class="ml-3 text-lg text-gray-700">Facebook</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="source-youtube" name="Source" type="radio" value="YouTube" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
-                            <label for="source-youtube" class="ml-3 text-lg text-gray-700">YouTube</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="source-other" name="Source" type="radio" value="Others" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
-                            <label for="source-other" class="ml-3 text-lg text-gray-700">Others</label>
+                    <!-- How did you hear about us? -->
+                    <div>
+                        <label class="block text-left text-lg font-medium text-gray-700 mb-2">How did you hear about us?</label>
+                        <div class="mt-2 space-y-2 text-left">
+                            <div class="flex items-center">
+                                <input id="source-instagram" name="Source" type="radio" value="Instagram" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
+                                <label for="source-instagram" class="ml-3 text-lg text-gray-700">Instagram</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="source-facebook" name="Source" type="radio" value="Facebook" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
+                                <label for="source-facebook" class="ml-3 text-lg text-gray-700">Facebook</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="source-youtube" name="Source" type="radio" value="YouTube" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
+                                <label for="source-youtube" class="ml-3 text-lg text-gray-700">YouTube</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="source-other" name="Source" type="radio" value="Others" class="h-5 w-5 accent-golisoda-blue focus:ring-golisoda-blue border-gray-300">
+                                <label for="source-other" class="ml-3 text-lg text-gray-700">Others</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Submit Button -->
-                <div>
-                    <button type="submit" class="w-full px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
-                        Submit Inquiry
-                    </button>
-                </div>
-            </form>
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" class="w-full px-8 py-4 rounded-full text-lg font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out bg-golisoda-dark-blue text-golisoda-yellow hover:bg-blue-900">
+                            Submit Inquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <p class="text-lg mt-10 opacity-90">Or connect with us directly:</p>
+            <p class="text-lg mt-2 opacity-90">Email: <a href="mailto:franchise@safc.ltd" class="font-bold underline transition duration-300 text-golisoda-yellow hover:text-yellow-400">franchise@safc.ltd</a></p>
+            <p class="text-lg mt-2 opacity-90">Call us at: <span class="font-bold">+91-01206089114</span></p>
         </div>
-
-        <p class="text-lg mt-10 opacity-90">Or connect with us directly:</p>
-        <p class="text-lg mt-2 opacity-90">Email: <a href="mailto:franchise@safc.ltd" class="font-bold underline transition duration-300 text-golisoda-yellow hover:text-yellow-400">franchise@safc.ltd</a></p>
-        <p class="text-lg mt-2 opacity-90">Call us at: <span class="font-bold">+91-01206089114</span></p>
     </section>
 
     <!-- Footer -->
@@ -618,22 +731,22 @@
         <div class="container mx-auto text-center px-4">
             <p>&copy; 2025 Mr.Golisoda. All rights reserved.</p>
             <div class="flex justify-center space-x-6 mt-4">
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-blue-500 transition duration-300 font-semibold flex items-center">
-                    <svg class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
-                    </svg>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-500 transition duration-300 font-semibold flex items-center">
+                    <!-- Replaced SVG with PNG Image for Facebook -->
+                    <img src="https://placehold.co/24x24/ffffff/000000?text=FB" alt="Facebook Icon" class="w-6 h-6 mr-1">
+                    <!-- Added a placeholder image URL. Please replace 'https://placehold.co/24x24/ffffff/000000?text=FB' with your actual Facebook PNG image URL. -->
                     Facebook
                 </a>
-                <a href="https://www.instagram.com/mr_golisoda/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-pink-500 transition duration-300 font-semibold flex items-center">
-                    <svg class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M12 0C8.74 0 8.333.014 7.053.072 5.775.132 4.935.257 4.043.627 3.04.997 2.155 1.59 1.517 2.296C.81 3 0 4.173 0 6.012v11.976C0 19.827.81 21 1.517 21.704.935 22.143 12.33 24 17.988 24 21.827 24 23 23.19 23.704 22.483c.706-.64.957-1.525 1.327-2.527.37-1.002.495-1.842.555-3.123.058-1.28.072-1.674.072-4.95C24 8.333 23.986 7.927 23.928 6.647c-.06-1.28-.185-2.12-.555-3.123-.37-1.002-.59-1.887-1.3-2.527C21 0 19.827 0 17.988 0H12zm0 2.16c3.2 0 3.58.013 4.85.071 1.17.058 1.8.18 2.2.34.39.16.72.37 1.0.64.28.27.49.6.64 1.0.16.4.28.98.34 2.2.057 1.27.07 1.66.07 4.85s-.013 3.58-.071 4.85c-.058 1.17-.18 1.8-.34 2.2-.16.39-.37.72-.64 1.0-.27.28-.6.49-1.0.64-.4.16-.98.28-2.2.34-1.27.057-1.66.07-4.85.07s-3.58-.013-4.85-.071c-1.17-.058-1.8-.18-2.2-.34-.39-.16-.72-.37-1.0-.64-.28-.27-.49-.6-.64-1.0-.16-.4-.28-.98-.34-2.2-.057-1.27-.07-1.66-.07-4.85s.013-3.58.071-4.85c.058-1.17.18-1.8.34-2.2.16-.39.37-.72.64-1.0.27-.28.6-.49 1.0-.64.4-.16.98-.28 2.2-.34 1.27-.057 1.66-.07 4.85-.07zm0 3.673c-3.155 0-5.727 2.572-5.727 5.727C6.273 15.155 8.845 17.727 12 17.727s5.727-2.572 5.727-5.727S15.155 5.833 12 5.833zm0 9.44a3.713 3.713 0 110-7.426 3.713 3.713 0 010 7.426zm-5.748-8.502a1.353 1.353 0 100-2.706 1.353 1.353 0 000 2.706z" clip-rule="evenodd" />
-                    </svg>
+                <a href="https://www.instagram.com/mr_golisoda/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-pink-500 transition duration-300 font-semibold flex items-center">
+                    <!-- Replaced SVG with PNG Image for Instagram -->
+                    <img src="https://placehold.co/24x24/ffffff/000000?text=IG" alt="Instagram Icon" class="w-6 h-6 mr-1">
+                    <!-- Added a placeholder image URL. Please replace 'https://placehold.co/24x24/ffffff/000000?text=IG' with your actual Instagram PNG image URL. -->
                     Instagram
                 </a>
-                <a href="https://www.youtube.com/@MR.GOLISODA" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-red-600 transition duration-300 font-semibold flex items-center">
-                    <svg class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12.75 3.018c-.852-.06-1.579.057-1.834.116-.362.083-.715.228-1.034.426-.358.225-.662.535-.902.902-.271.41-.458.884-.539 1.488-.06.44-.069 1.066-.07 1.942a17.265 17.265 0 00-.007 2.45c0 .614-.007 1.157.007 1.748.007.653.03 1.285.07 1.713.08.61.267 1.094.539 1.488.24.367.544.677.902.902-.319-.198-.672-.343-1034-.426-.255.059-.982-.176-1.834-.116.852.06 1.579-.057 1.834-.116.362-.083.715-.228 1.034.426-.358.225-.662-.535-.902-.902-.271-.41-.458-.884-.539-1.488-.06-.44-.069 1.066-.07-1.942a17.265 17.265 0 00.007-2.45c0-.614.007-1.157-.007-1.748-.007-.653-.03-1.285-.07-1.713-.08-.61-.267-1.094-.539-1.488-.24-.367-.544-.677-.902-.902-.319-.198-.672-.343-1034-.426-.255.059-.982-.176-1.834-.116zM10.875 14.5V9.5l4.5 2.5-4.5 2.5z"/>
-                    </svg>
+                <a href="https://www.youtube.com/@MR.GOLISODA" target="_blank" rel="noopener noreferrer" class="text-white hover:text-red-600 transition duration-300 font-semibold flex items-center">
+                    <!-- Replaced SVG with PNG Image for YouTube -->
+                    <img src="https://placehold.co/24x24/ffffff/000000?text=YT" alt="YouTube Icon" class="w-6 h-6 mr-1">
+                    <!-- Added a placeholder image URL. Please replace 'https://placehold.co/24x24/ffffff/000000?text=YT' with your actual YouTube PNG image URL. -->
                     YouTube
                 </a>
             </div>
@@ -688,6 +801,25 @@
         window.onclick = function(event) {
             if (event.target == videoModal) {
                 closeModal();
+            }
+        }
+
+        // FAQ Accordion Functionality
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-icon');
+
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.classList.remove('rotate');
+            } else {
+                // Close all other open answers
+                document.querySelectorAll('.faq-answer.open').forEach(item => {
+                    item.classList.remove('open');
+                    item.previousElementSibling.querySelector('.faq-icon').classList.remove('rotate');
+                });
+                answer.classList.add('open');
+                icon.classList.add('rotate');
             }
         }
     </script>
