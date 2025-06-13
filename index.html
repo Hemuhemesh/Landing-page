@@ -197,6 +197,8 @@
             max-width: 800px;
             border-radius: 10px;
             position: relative;
+            max-height: 90vh; /* Limit modal height */
+            overflow-y: auto; /* Enable scrolling within modal */
         }
 
         .close-button {
@@ -206,6 +208,7 @@
             right: 20px;
             font-size: 28px;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .close-button:hover,
@@ -262,7 +265,7 @@
             <!-- Logo/Brand Name -->
             <a href="#" class="text-2xl font-bold text-gray-900 rounded-md p-2 flex items-center hover:bg-blue-50 transition duration-300">
                 <!-- Brand Logo: Assumes 'Logo 1.1.png' is in an 'assets' folder relative to this HTML file -->
-                <img src="Logo 1.1.png" alt="Mr.Golisoda Logo" class="w-10 h-10 mr-2 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/40x40/14abf8/ffffff?text=LOGO';">
+                <img src="assets/Logo 1.1.png" alt="Mr.Golisoda Logo" class="w-10 h-10 mr-2 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/40x40/14abf8/ffffff?text=LOGO';">
                 Mr.Golisoda
             </a>
             <!-- Navigation -->
@@ -275,7 +278,6 @@
                     <li><a href="#founder" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Founders</a></li>
                     <li><a href="#reviews" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Reviews</a></li>
                     <li><a href="#faq" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">FAQ</a></li>
-                    <!-- Privacy Policy link removed from header navigation as requested -->
                     <li><a href="#contact-form-section" class="text-gray-700 hover:text-golisoda-blue font-semibold transition duration-300 p-2 rounded-md hover:bg-blue-50">Contact</a></li>
                 </ul>
             </nav>
@@ -336,7 +338,7 @@
                 <div class="md:w-1/2">
                     <h2 class="text-4xl font-bold text-gray-900 mb-6 text-center md:text-left">Our 8-Year Journey of Fizz & Success</h2>
                     <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
-                        Mr.Golisoda began its journey 8 years ago with a vision to reintroduce the nostalgic charm of traditional Indian goli soda. What started as a humble endeavor has blossomed into a formidable brand, successfully establishing its presence across multiple states in India.
+                        Mr.Golisoda began its journey 8 years ago with a deep-rooted passion for traditional Indian beverages and a keen entrepreneurial spirit. What started as a humble endeavor has blossomed into a formidable brand, successfully establishing its presence across multiple states in India.
                     </p>
                     <p class="text-lg text-gray-700 leading-relaxed mb-4 text-center md:text-left">
                         Our commitment to authentic flavors, quality ingredients, and a unique bottling experience has resonated with millions. We've achieved significant milestones, expanding our manufacturing capabilities and building a robust distribution network, making Mr.Golisoda a household name in several regions.
@@ -609,45 +611,6 @@
         </div>
     </section>
 
-    <!-- Privacy Policy Section -->
-    <section id="privacy-policy" class="bg-white py-16 md:py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-gray-900 text-center mb-8">Privacy Policy</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                This Privacy Policy describes how Mr.Golisoda collects, uses, and discloses your Personal Information when you visit or make a submission through our franchise inquiry form.
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Information We Collect</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                When you submit the franchise inquiry form, we collect the following personal information:
-                <ul class="list-disc list-inside ml-4 mt-2 text-lg text-gray-700">
-                    <li>Name</li>
-                    <li>Contact Number</li>
-                    <li>Email Address</li>
-                    <li>State</li>
-                    <li>District</li>
-                    <li>How you heard about us (Source)</li>
-                </ul>
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-900 mb-3">How We Use Your Information</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                We use the information we collect from you to:
-                <ul class="list-disc list-inside ml-4 mt-2 text-lg text-gray-700">
-                    <li>Process your franchise inquiry and provide you with relevant information.</li>
-                    <li>Contact you regarding your inquiry.</li>
-                    <li>Improve our services and marketing efforts.</li>
-                </ul>
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Sharing Your Personal Information</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                We do not share your personal information with third parties except as necessary to fulfill your request or as required by law.
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Your Rights</h3>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                You have the right to access the personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us through the details provided in the contact section.
-            </p>
-        </div>
-    </section>
-
     <!-- Call to Action Section - Franchise Inquiry Form -->
     <section id="contact-form-section" class="bg-golisoda-blue text-white py-16 md:py-20 text-center">
         <div class="container mx-auto">
@@ -768,7 +731,8 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-8">
         <div class="container mx-auto text-center px-4">
-            <p>&copy; 2025 Mr.Golisoda. All rights reserved. <a href="#privacy-policy" class="font-semibold underline hover:text-golisoda-blue transition duration-300">Privacy Policy</a></p>
+            <!-- Privacy Policy link now triggers the modal -->
+            <p>&copy; 2025 Mr.Golisoda. All rights reserved. <a href="#" onclick="openPrivacyPolicyModal(event)" class="font-semibold underline hover:text-golisoda-blue transition duration-300">Privacy Policy</a></p>
             <div class="flex justify-center space-x-6 mt-4">
                 <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-500 transition duration-300 font-semibold flex items-center">
                     <!-- Facebook Icon (SVG for reliability) -->
@@ -802,6 +766,46 @@
             <div class="video-embed-container">
                 <iframe id="modalVideoPlayer" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyPolicyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closePrivacyPolicyModal()">&times;</span>
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-8">Privacy Policy</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                This Privacy Policy describes how Mr.Golisoda collects, uses, and discloses your Personal Information when you visit or make a submission through our franchise inquiry form.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Information We Collect</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                When you submit the franchise inquiry form, we collect the following personal information:
+                <ul class="list-disc list-inside ml-4 mt-2 text-lg text-gray-700">
+                    <li>Name</li>
+                    <li>Contact Number</li>
+                    <li>Email Address</li>
+                    <li>State</li>
+                    <li>District</li>
+                    <li>How you heard about us (Source)</li>
+                </ul>
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-900 mb-3">How We Use Your Information</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                We use the information we collect from you to:
+                <ul class="list-disc list-inside ml-4 mt-2 text-lg text-gray-700">
+                    <li>Process your franchise inquiry and provide you with relevant information.</li>
+                    <li>Contact you regarding your inquiry.</li>
+                    <li>Improve our services and marketing efforts.</li>
+                </ul>
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Sharing Your Personal Information</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                We do not share your personal information with third parties except as necessary to fulfill your request or as required by law.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-900 mb-3">Your Rights</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                You have the right to access the personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us through the details provided in the contact section.
+            </p>
         </div>
     </div>
 
@@ -839,10 +843,24 @@
             videoModal.style.display = 'none';
         }
 
-        // Close modal when clicking outside of the video content
+        // Functions for Privacy Policy Modal
+        const privacyPolicyModal = document.getElementById('privacyPolicyModal');
+
+        function openPrivacyPolicyModal(event) {
+            event.preventDefault(); // Prevent default link behavior (scrolling to #privacy-policy)
+            privacyPolicyModal.style.display = 'flex';
+        }
+
+        function closePrivacyPolicyModal() {
+            privacyPolicyModal.style.display = 'none';
+        }
+
+        // Close any modal when clicking outside of the content
         window.onclick = function(event) {
             if (event.target == videoModal) {
                 closeModal();
+            } else if (event.target == privacyPolicyModal) {
+                closePrivacyPolicyModal();
             }
         }
 
@@ -865,6 +883,9 @@
             }
         }
     </script>
+
+</body>
+</html>
 
 </body>
 </html>
